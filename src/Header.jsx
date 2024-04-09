@@ -1,13 +1,13 @@
 import { Link } from 'react-router-dom';
 
-function Header() {
+function Header({handleLogout}) {
     return (
         <header>
             <div className="logo">TechTalk</div>
             <nav>
                 <Link to="/profile">Profile</Link>
             </nav>
-            <button>Logout</button>
+            <button onClick={handleLogout}>Logout</button>
         </header>
     );
 }

@@ -24,9 +24,12 @@ function Login() {
                 throw new Error(data.message || 'Failed to log in');
             }
 
+            // Store the user ID in local storage upon successful login
+            localStorage.setItem('user_id', data.user_id);
+
             // Redirect to home page after successful login
             // Replace '/' with your actual home page route
-            window.location.href = '/';
+            window.location.href = '/home';
         } catch (error) {
             setError(error.message);
         }

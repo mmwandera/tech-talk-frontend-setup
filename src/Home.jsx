@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import BlogCard from './BlogCard';
+import Header from './Header';
 
 function Home() {
     const [blogs, setBlogs] = useState([]);
@@ -22,9 +23,16 @@ function Home() {
         fetchBlogs();
     }, []);
 
+    const handleLogout = () => {
+        // Clear user ID from local storage
+        localStorage.removeItem('user_id');
+        // Redirect to login page
+        window.location.href = '/';
+    };
+
     return (
         <div>
-            {/* Your existing code */}
+            <Header handleLogout={handleLogout} />
             {/* Right Part */}
             <div className="right-section" style={{ width: '70%' }}>
                 {/* Search Bar */}

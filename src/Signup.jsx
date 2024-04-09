@@ -27,7 +27,7 @@ function Signup() {
 
             // Redirect to login page after successful signup
             // Replace '/login' with your actual login route
-            window.location.href = '/login';
+            window.location.href = '/';
         } catch (error) {
             setError(error.message);
         }
