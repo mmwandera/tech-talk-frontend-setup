@@ -1,11 +1,12 @@
 import { Link } from 'react-router-dom';
 
-function Header({handleLogout}) {
+function Header({ handleLogout }) {
     return (
         <header>
             <div className="logo">TechTalk</div>
             <nav>
                 <Link to="/profile">Profile</Link>
+                <Link to="/manage-blogs">Manage Blogs</Link>
             </nav>
             <button onClick={handleLogout}>Logout</button>
         </header>
