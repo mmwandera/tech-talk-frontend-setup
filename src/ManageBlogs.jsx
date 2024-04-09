@@ -63,6 +63,20 @@ function ManageBlogs() {
         }
     };
 
+    const handleDeleteBlog = async (blogId) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:3000/delete-blog/${blogId}`, {
+                method: 'DELETE'
+            });
+            if (!response.ok) {
+                throw new Error('Failed to delete blog');
+            }
+            fetchUserBlogs();
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     if (!loggedIn) {
         return <div>Please login to access the content.</div>;
     }
@@ -111,7 +125,7 @@ function ManageBlogs() {
                         <h3>{blog.title}</h3>
                         <p>{blog.content}</p>
                         <img src={blog.image_url} alt="Blog Thumbnail" />
-                        {/* Edit and delete buttons */}
+                        <button onClick={() => handleDeleteBlog(blog.id)}>Delete</button>
                     </div>
                 ))}
             </div>

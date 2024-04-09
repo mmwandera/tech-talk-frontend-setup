@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import BlogCard from './BlogCard';
 import Header from './Header';
-import UserCard from './UserCard';
 
 function Home() {
     const [blogs, setBlogs] = useState([]);
-    const [otherUsers, setOtherUsers] = useState([]);
     const [loggedIn, setLoggedIn] = useState(false);
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     useEffect(() => {
         // Check if user ID exists in local storage
@@ -33,30 +33,16 @@ function Home() {
             }
         };
 
-        const fetchOtherUsers = async () => {
-            try {
-                const response = await fetch(`http://127.0.0.1:3000/users?user_id=${userId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch other users');
-                }
-                const data = await response.json();
-                console.log(data);
-                setOtherUsers(data);
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
         fetchBlogs();
-        fetchOtherUsers();
+
     }, []);
 
-    const handleLogout = () => {
-        // Clear user ID from local storage
-        localStorage.removeItem('user_id');
-        // Redirect to login page
-        window.location.href = '/';
+    // Function to handle logging blog id
+    const handleShowDetails = (blogId) => {
+        console.log('Clicked Show Details for blog id:', blogId);
+        navigate(`/blog-details/${blogId}`, { state: { blogId } });
     };
+    
 
     if (!loggedIn) {
         return <div>Please login to access the content.</div>;
@@ -64,7 +50,7 @@ function Home() {
 
     return (
         <div>
-            <Header handleLogout={handleLogout} />
+            <Header />
             {/* Right Part */}
             <div className="right-section" style={{ width: '70%' }}>
                 {/* Search Bar */}
@@ -76,15 +62,13 @@ function Home() {
                 <h2>Blogs</h2>
                 {/* Render blogs */}
                 {blogs.map(blog => (
-                    <BlogCard key={blog.id} {...blog} />
-                ))}
-            </div>
-
-            {/* Other Users */}
-            <div>
-                <h2>Other Users</h2>
-                {otherUsers.map(user => (
-                    <UserCard key={user.id} user={user} />
+                    <div key={blog.id}>
+                        {/* Blog Card */}
+                        <BlogCard 
+                            {...blog} 
+                            onShowDetails={() => handleShowDetails(blog.id)} // Pass the function as a prop
+                        />
+                    </div>
                 ))}
             </div>
         </div>
