@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import './Login.css'; // Import the CSS file
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -36,10 +37,11 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className="login-container"> {/* Apply a container class */}
+            <h1>TechTalk</h1>
             <h2>Login</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form onSubmit={handleSubmit} className="login-form"> {/* Apply a form class */}
+                <div className="form-group"> {/* Apply a group class */}
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
@@ -49,7 +51,7 @@ function Login() {
                         required
                     />
                 </div>
-                <div>
+                <div className="form-group"> {/* Apply a group class */}
                     <label htmlFor="password">Password:</label>
                     <input
                         type="password"
@@ -60,7 +62,7 @@ function Login() {
                     />
                 </div>
                 <button type="submit">Login</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p className="error-message">{error}</p>} {/* Apply a class for error message */}
             </form>
             <p>Don&apos;t have an account? <Link to="/signup">Sign up</Link></p>
         </div>

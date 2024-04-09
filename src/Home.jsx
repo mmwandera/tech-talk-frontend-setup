@@ -43,6 +43,13 @@ function Home() {
         navigate(`/blog-details/${blogId}`, { state: { blogId } });
     };
     
+    // Function to handle logout
+    const handleLogout = () => {
+        // Clear user ID from local storage
+        localStorage.removeItem('user_id');
+        // Redirect to login page
+        navigate('/');
+    };
 
     if (!loggedIn) {
         return <div>Please login to access the content.</div>;
@@ -50,16 +57,11 @@ function Home() {
 
     return (
         <div>
-            <Header />
+            <Header handleLogout={handleLogout} />
             {/* Right Part */}
-            <div className="right-section" style={{ width: '70%' }}>
-                {/* Search Bar */}
-                <div className="search-bar">
-                    <input type="text" placeholder="Search blogs" />
-                </div>
-
+            <div className="right-section">
                 {/* Blogs */}
-                <h2>Blogs</h2>
+                
                 {/* Render blogs */}
                 {blogs.map(blog => (
                     <div key={blog.id}>

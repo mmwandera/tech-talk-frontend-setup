@@ -5,7 +5,6 @@ function Header({ handleLogout }) {
         <header>
             <div className="logo">TechTalk</div>
             <nav>
-                <Link to="/profile">Profile</Link>
                 <Link to="/manage-blogs">Manage Blogs</Link>
             </nav>
             <button onClick={handleLogout}>Logout</button>

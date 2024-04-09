@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ManageBlogs() {
     const [loggedIn, setLoggedIn] = useState(false);
@@ -82,33 +82,34 @@ function ManageBlogs() {
     }
 
     return (
-        <div>
+        <div className="manage-blogs-container">
+            <h3><Link to="/home">Back Home</Link></h3>
             {/* Form for posting a new blog */}
-            <form onSubmit={handlePostBlog}>
-                <div>
-                    <label htmlFor="title">Title:</label>
+            <form className="post-blog-form" onSubmit={handlePostBlog}>
+                <div className="form-group">
+                    <label htmlFor="blog-title">Title:</label>
                     <input
                         type="text"
-                        id="title"
+                        id="blog-title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="content">Content:</label>
+                <div className="form-group">
+                    <label htmlFor="blog-content">Content:</label>
                     <textarea
-                        id="content"
+                        id="blog-content"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="imageUrl">Image URL:</label>
+                <div className="form-group">
+                    <label htmlFor="blog-image-url">Image URL:</label>
                     <input
                         type="text"
-                        id="imageUrl"
+                        id="blog-image-url"
                         value={imageUrl}
                         onChange={(e) => setImageUrl(e.target.value)}
                         required
@@ -117,13 +118,14 @@ function ManageBlogs() {
                 <button type="submit">Post Blog</button>
             </form>
 
+            <h2>Your Blogs</h2>
             {/* Display user's blogs */}
-            <div>
-                <h2>Your Blogs</h2>
+            <div className="blog-list">
+                
                 {userBlogs.map(blog => (
-                    <div key={blog.id}>
+                    <div className="blog-item" key={blog.id}>
                         <h3>{blog.title}</h3>
-                        <p>{blog.content}</p>
+                        {/* <p>{blog.content}</p> */}
                         <img src={blog.image_url} alt="Blog Thumbnail" />
                         <button onClick={() => handleDeleteBlog(blog.id)}>Delete</button>
                     </div>

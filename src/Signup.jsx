@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Signup() {
     const [username, setUsername] = useState('');
-    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
@@ -16,7 +15,7 @@ function Signup() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ username, email, password })
+                body: JSON.stringify({ username, password })
             });
 
             const data = await response.json();
@@ -34,43 +33,34 @@ function Signup() {
     };
 
     return (
-        <div>
+        <div className="signup-container">
+            <h1>TechTalk</h1>
             <h2>Sign up</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
+            <form className="signup-form" onSubmit={handleSubmit}>
+                <div className="form-group">
                     <label htmlFor="username">Username:</label>
                     <input
                         type="text"
-                        id="username"
+                        id="signup-username"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        required
-                    />
-                </div>
-                <div>
+                <div className="form-group">
                     <label htmlFor="password">Password:</label>
                     <input
                         type="password"
-                        id="password"
+                        id="signup-password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         required
                     />
                 </div>
                 <button type="submit">Sign up</button>
-                {error && <p style={{ color: 'red' }}>{error}</p>}
+                {error && <p className="error-message">{error}</p>}
             </form>
-            <p>Already have an account? <Link to="/login">Login</Link></p>
+            <p>Already have an account? <Link to="/">Login</Link></p>
         </div>
     );
 }
